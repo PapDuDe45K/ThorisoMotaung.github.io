@@ -3,7 +3,7 @@ body {
     background-color: #343a40;  
     background-size: 400% 400%;
     color: #ffffff;
-    animation: gradientAnimation 5s ease infinite; 
+     
 }
 @keyframes gradientAnimation {
     0% {
