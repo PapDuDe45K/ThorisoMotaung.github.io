@@ -10,3 +10,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+document.addEventListener('DOMContentLoaded', function () {
+    const hamburgerMenu = document.getElementById('hamburger-menu');
+    const navDropdown = document.getElementById('nav-dropdown');
+
+    hamburgerMenu.addEventListener('click', function () {
+        navDropdown.classList.toggle('active');
+    });
+});
