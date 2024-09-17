@@ -1,10 +1,16 @@
-/*
 
-Lavish HTML CSS Template
-
-https://templatemo.com/tm-458-lavish
-		
-*/
+#bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -1;
+    object-fit: cover;
+    opacity: 0.5; /* Control the transparency */
+  }
 
 body
 {
@@ -171,7 +177,7 @@ h1,h2,h3,h4,h5
 /* start home */       
 #home
 	{
-        background: url('../images/home-bg.jpg');
+        background: url('../images/WebVid.mp4');
         background-size: cover;
         background-repeat: no-repeat;
         padding-top: 120px;
