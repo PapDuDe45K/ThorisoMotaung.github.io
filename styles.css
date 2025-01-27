@@ -1,191 +1,1121 @@
+/* Base Variables and Reset */
+:root {
+  --nokia-blue: #0048AA;
+  --nokia-highlight: #0066CC;
+  --nokia-grey: #d0d0d0;
+  --menu-bg: #D8E6F3;
+  --item-border: #A0B8D8;
+  --selected-bg: #0048AA;
+  --selected-text: #FFFFFF;
+  --status-bar-bg: #003399;
+  --text-primary: #333;
+  --text-secondary: #666;
+  --highlight: #ff4757;
+  --success: #2ed573;
+  --warning: #ffa502;
+  --error: #ff4757;
+}
+
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #343a40;  
-    background-size: 400% 400%;
-    color: #ffffff;
+  background-color: #2b2b2b;
+  font-family: "Nokia Pure Text", "Courier New", monospace;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  color: var(--text-primary);
 }
 
-@keyframes gradientAnimation {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
+/* Phone Container */
+.phone-container {
+  width: 360px;
+  background: linear-gradient(to bottom, #D8D8D8, #C0C0C0);
+  border-radius: 24px;
+  padding: 20px 16px;
+  box-shadow: 
+      0 4px 12px rgba(0,0,0,0.3),
+      inset 0 1px rgba(255,255,255,0.5);
+  position: relative;
 }
 
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+/* Screen Styles */
+.screen {
+  background: var(--menu-bg);
+  border: 2px solid #002266;
+  border-radius: 2px;
+  height: 480px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
 }
 
-h1, h2 {
-    text-shadow: 1px 1px 2px black;
+.content-container {
+  height: 100%;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--nokia-blue) var(--nokia-grey);
 }
 
-.btn-outline-info {
-    border-color: #5a17b8;
-    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
-}
-.btn-outline-info:hover {
-    background-color: #6a6767;
-    transform: scale(1.1);
+/* Custom Scrollbar */
+.content-container::-webkit-scrollbar {
+  width: 5px;
 }
 
-.text-info {
-    color: #a591c1 !important;
+.content-container::-webkit-scrollbar-track {
+  background: var(--nokia-grey);
 }
 
-nav a {
-    opacity: 50;
-    transition: opacity 0s ease-in-out;
+.content-container::-webkit-scrollbar-thumb {
+  background: var(--nokia-blue);
+  border-radius: 5px;
 }
 
-nav a:hover {
-    text-decoration: underline;
-    opacity: 1;
+/* Status Bar */
+.status-bar {
+  background: var(--status-bar-bg);
+  color: white;
+  padding: 4px 8px;
+  font-size: 11px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #001F4D;
 }
 
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #8858ca00;
-    padding: 10px;
-    border-top-left-radius: 32%;
-    border-top-right-radius: 32%;
-    color: #333;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
+.status-left, .status-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.logo {
-    color: #ffffff;
-    font-size: 1.5em;
-    font-weight: bold;
+/* Battery Indicator */
+.battery {
+  width: 16px;
+  height: 8px;
+  border: 1px solid white;
+  padding: 1px;
+  position: relative;
 }
 
-.hamburger-menu {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
+.battery-level {
+  height: 100%;
+  background: white;
+  width: 80%;
+  transition: width 0.3s ease;
 }
 
-.hamburger-menu .bar {
-    background-color: #ffffff;
-    height: 3px;
-    width: 25px;
-    margin: 3px 0;
-    border-radius: 5px;
+/* Menu Styles */
+.menu-container {
+  padding: 8px;
+  height: 100%;
+  background: var(--menu-bg);
 }
 
-.nav-dropdown {
-    display: none;
+.menu-item {
+  background: linear-gradient(to bottom, #FFFFFF, #F0F0F0);
+  border: 1px solid var(--item-border);
+  border-radius: 4px;
+  margin: 4px 0;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+  animation: menuSlide 0.3s ease-out forwards;
+  opacity: 0;
+  cursor: pointer;
 }
 
-.nav-links {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+.menu-item:nth-child(1) { animation-delay: 0.1s; }
+.menu-item:nth-child(2) { animation-delay: 0.2s; }
+.menu-item:nth-child(3) { animation-delay: 0.3s; }
+.menu-item:nth-child(4) { animation-delay: 0.4s; }
+.menu-item:nth-child(5) { animation-delay: 0.5s; }
+
+.menu-item.selected {
+  background: linear-gradient(to bottom, var(--nokia-highlight), var(--nokia-blue));
+  color: var(--selected-text);
+  border-color: var(--nokia-blue);
+  box-shadow: inset 0 1px rgba(255,255,255,0.3);
+  transform: scale(1.02);
 }
 
-.nav-links li {
-    margin: 0;
+.menu-item.selected::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+      to right,
+      transparent,
+      rgba(255,255,255,0.1),
+      transparent
+  );
+  animation: shine 1.5s infinite;
 }
 
-.nav-links a {
-    display: block;
-    padding: 10px;
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 1em;
-    transition: color 0.3s ease;
+/* Menu Text Styles */
+.menu-text {
+  font-size: 14px;
+  font-weight: bold;
 }
 
-.nav-links a:hover {
-    color: #a591c1;
+.menu-hint {
+  font-size: 11px;
+  opacity: 0.8;
+  margin-top: 2px;
 }
 
-/* Mobile styles */
-@media (max-width: 768px) {
-    .hamburger-menu {
-        display: flex;
-    }
-
-    .nav-dropdown.active {
-        display: block;
-        position: absolute;
-        top: 60px; /* Adjust based on header height */
-        left: 0;
-        width: 100%;
-        background-color: #8758ca;
-        z-index: 1001;
-    }
-
-    .nav-links li {
-        margin: 0;
-        text-align: center;
-    }
+.menu-icon {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-footer {
-    font-weight: lighter;
-    background-color: #8758ca; 
-    padding: 10px;  
-    border-top-left-radius: 32%;
-    border-top-right-radius: 32%;
-    text-align: center;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    color: #333; 
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
+/* Keypad */
+.keypad {
+  margin-top: 12px;
+  gap: 6px;
+  padding: 0 4px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 
-.list-group-item {
-    background-color: #495057; 
-    color: #ffffff; 
+.key {
+  background: linear-gradient(to bottom, #FAFAFA, #E0E0E0);
+  border: 1px solid #999;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 12px;
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  box-shadow: 
+      0 1px 2px rgba(0,0,0,0.1),
+      inset 0 1px rgba(255,255,255,0.8);
+  cursor: pointer;
+  user-select: none;
+  text-align: center;
+  transition: all 0.1s ease;
 }
 
-.list-group-item a {
-    color: #a591c1; 
+.key:active, .key.pressed {
+  background: linear-gradient(to bottom, #E0E0E0, #D0D0D0);
+  box-shadow: 
+      inset 0 1px 2px rgba(0,0,0,0.1),
+      0 1px rgba(255,255,255,0.8);
+  transform: translateY(1px);
 }
 
-.modal-content {
-    background-color: #a591c1; 
-    color: rgb(0, 0, 0);
+/* Animations */
+@keyframes menuSlide {
+  from {
+      transform: translateX(100%);
+      opacity: 0;
+  }
+  to {
+      transform: translateX(0);
+      opacity: 1;
+  }
 }
 
-.social-icons a {
-    margin: 0 10px;
-    color: #ffffff;
-    transition: color 0.3s;
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-.social-icons a:hover {
-    color: #a591c1; 
-    text-shadow: 0 0 10px #fff; 
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Notifications */
+.notification-container {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+
+.notification {
+  background: var(--nokia-blue);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  margin: 5px 0;
+  animation: slideUp 0.3s ease-out;
+}
+
+/* Screen Content Styles */
+.screen-content {
+  padding: 10px;
+}
+
+.section-title {
+  background: var(--nokia-blue);
+  color: white;
+  padding: 5px 10px;
+  margin: 10px 0;
+  font-size: 12px;
+  border-radius: 2px;
+}
+
+/* Responsive Design */
+@media (max-width: 400px) {
+  .phone-container {
+      width: 100%;
+      height: 100vh;
+      border-radius: 0;
+      padding: 10px;
+  }
+
+  .screen {
+      height: calc(100vh - 150px);
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* Print Styles */
+@media print {
+  .phone-container {
+      box-shadow: none;
+      width: 100%;
+  }
+
+  .keypad, .status-bar {
+      display: none;
+  }
+
+  .screen {
+      border: none;
+      height: auto;
+  }
+
+  .content-container {
+      overflow: visible;
+  }
+}
+/* Experience Section Styles */
+.experience-screen {
+  padding: 10px;
+}
+
+.experience-card {
+  background: white;
+  border: 1px solid var(--item-border);
+  border-radius: 4px;
+  padding: 12px;
+  margin: 8px 0;
+}
+
+.role-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.role-header h3 {
+  color: var(--nokia-blue);
+  font-size: 14px;
+}
+
+.period {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.company-info {
+  margin-bottom: 8px;
+  font-size: 12px;
+}
+
+.highlight-item, .achievement-item {
+  display: flex;
+  gap: 8px;
+  margin: 4px 0;
+  font-size: 12px;
+}
+
+.bullet {
+  color: var(--nokia-blue);
+}
+
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.tech-tag {
+  background: var(--nokia-light-blue);
+  color: var(--nokia-blue);
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-size: 11px;
+}
+
+.topic-tag {
+  background: var(--nokia-light-blue);
+  color: var(--nokia-blue);
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-size: 11px;
+  margin: 2px;
+}
+.key[data-key="hire"] {
+  background: linear-gradient(to bottom, var(--nokia-highlight), var(--nokia-blue));
+  color: white;
+  font-weight: bold;
+  border: 1px solid var(--nokia-blue);
+}
+
+.key[data-key="hire"]:active {
+  background: linear-gradient(to bottom, var(--nokia-blue), var(--nokia-highlight));
+}
+.nokia-project-card {
+  background: var(--nokia-blue);
+  color: white;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 2px;
+}
+
+.project-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.project-type {
+  font-size: 12px;
+  opacity: 0.9;
+  margin-bottom: 8px;
+}
+
+.project-details {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 6px;
+  margin: 6px 0;
+  border-radius: 2px;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.metrics {
+  margin: 8px 0;
+  font-size: 12px;
+}
+
+.metric-item {
+  padding: 2px 0;
+}
+
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.tech-item {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 2px 6px;
+  border-radius: 2px;
+  font-size: 11px;
+}
+
+.project-link {
+  margin-top: 8px;
+  text-align: right;
+}
+
+.project-link a {
+  color: white;
+  text-decoration: none;
+  font-size: 12px;
+}
+.nokia-skills-category {
+  margin-bottom: 12px;
+}
+
+.category-header {
+  background: var(--nokia-blue);
+  color: white;
+  padding: 6px 10px;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 2px;
+}
+
+.skill-item {
+  background: rgba(255, 255, 255, 0.95);
+  margin: 1px 0;
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.skill-item:hover {
+  background: rgba(18, 65, 145, 0.1);
+}
+
+.skill-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.skill-name {
+  font-weight: bold;
+  color: var(--nokia-blue);
+}
+
+.skill-level {
+  color: var(--nokia-blue);
+  letter-spacing: 2px;
+}
+
+.skill-details {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.projects-info {
+  background: rgba(18, 65, 145, 0.1);
+  padding: 2px 6px;
+  border-radius: 2px;
+  font-size: 11px;
+}
+
+.skill-focus {
+  font-style: italic;
+  opacity: 0.8;
+}
+
+.skill-dots {
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+/* Animation for skill items */
+.skill-item {
+  animation: slideIn 0.3s ease-out forwards;
+  opacity: 0;
 }
 
 @keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateX(-100%);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+  from {
+      transform: translateX(-10px);
+      opacity: 0;
+  }
+  to {
+      transform: translateX(0);
+      opacity: 1;
+  }
 }
 
-.container {
-    animation: slideIn 2s ease-out;
+/* Stagger animation for items */
+.skill-item:nth-child(1) { animation-delay: 0.1s; }
+.skill-item:nth-child(2) { animation-delay: 0.2s; }
+.skill-item:nth-child(3) { animation-delay: 0.3s; }
+.skill-item:nth-child(4) { animation-delay: 0.4s; }
+.nokia-contact-section {
+  margin-bottom: 16px;
+}
+
+.section-header {
+  background: var(--nokia-blue);
+  color: white;
+  padding: 6px 10px;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 2px;
+}
+
+.contact-items {
+  background: white;
+  margin: 1px 0;
+}
+
+.contact-item {
+  padding: 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border-bottom: 1px solid rgba(18, 65, 145, 0.1);
+  cursor: pointer;
+}
+
+.contact-icon {
+  font-size: 20px;
+  width: 24px;
+  text-align: center;
+}
+
+.contact-info {
+  flex: 1;
+}
+
+.contact-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 2px;
+}
+
+.contact-value {
+  font-size: 14px;
+  color: var(--nokia-blue);
+}
+
+.copy-hint {
+  font-size: 10px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+  opacity: 0.7;
+}
+
+.monospace {
+  font-family: 'Courier New', monospace;
+}
+
+.profile-links {
+  background: white;
+  margin: 1px 0;
+}
+
+.profile-item {
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid rgba(18, 65, 145, 0.1);
+  text-decoration: none;
+  color: inherit;
+}
+
+.profile-icon {
+  font-size: 20px;
+  width: 24px;
+  text-align: center;
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.profile-name {
+  font-weight: bold;
+  color: var(--nokia-blue);
+}
+
+.profile-details {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.arrow {
+  color: var(--nokia-blue);
+  font-weight: bold;
+}
+
+.availability-info {
+  background: white;
+  padding: 12px;
+  margin: 1px 0;
+}
+
+.status-badge {
+  display: inline-block;
+  background: var(--success);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 2px;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.roles-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.role-badge {
+  background: rgba(18, 65, 145, 0.1);
+  padding: 4px 8px;
+  border-radius: 2px;
+  font-size: 12px;
+  color: var(--nokia-blue);
+}
+
+.relocation-info {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* Hover effects */
+.contact-item:hover,
+.profile-item:hover {
+  background: rgba(18, 65, 145, 0.05);
+}
+
+/* Animation */
+.contact-item,
+.profile-item {
+  animation: slideIn 0.3s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes slideIn {
+  from {
+      transform: translateY(10px);
+      opacity: 0;
+  }
+  to {
+      transform: translateY(0);
+      opacity: 1;
+  }
+}
+
+/* Stagger animations */
+.contact-item:nth-child(1) { animation-delay: 0.1s; }
+.contact-item:nth-child(2) { animation-delay: 0.2s; }
+.contact-item:nth-child(3) { animation-delay: 0.3s; }
+
+.nokia-grid-menu {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  padding: 8px;
+  height: 100%;
+}
+
+.grid-item {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--nokia-blue);
+  border-radius: 4px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.grid-item.selected {
+  background: var(--nokia-blue);
+  color: white;
+  transform: scale(1.02);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.grid-icon {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.grid-text {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.grid-hint {
+  font-size: 10px;
+  opacity: 0.8;
+}
+
+/* Navigation Indicators */
+.grid-item::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--nokia-blue);
+  bottom: 4px;
+  right: 4px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.grid-item.selected::after {
+  opacity: 1;
+}
+
+/* Animation for selection */
+@keyframes pulseSelect {
+  0% { transform: scale(1.02); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1.02); }
+}
+
+.grid-item.selected {
+  animation: pulseSelect 1s infinite;
+}
+.menu-container {
+  padding: 10px;
+}
+
+.menu-item {
+  background: rgba(255, 255, 255, 0.95);
+  margin: 4px 0;
+  padding: 12px;
+  border: 1px solid var(--nokia-blue);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.2s ease;
+}
+
+.menu-item.selected {
+  background: var(--nokia-blue);
+  color: white;
+  transform: translateX(5px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.menu-icon {
+  font-size: 24px;
+  width: 30px;
+  text-align: center;
+}
+
+.menu-content {
+  flex: 1;
+}
+
+.menu-text {
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+.menu-hint {
+  font-size: 11px;
+  opacity: 0.8;
+}
+
+/* Animation for menu items */
+.menu-item {
+  animation: slideIn 0.3s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes slideIn {
+  from {
+      transform: translateX(20px);
+      opacity: 0;
+  }
+  to {
+      transform: translateX(0);
+      opacity: 1;
+  }
+}
+
+/* Stagger animation for items */
+.menu-item:nth-child(1) { animation-delay: 0.1s; }
+.menu-item:nth-child(2) { animation-delay: 0.2s; }
+.menu-item:nth-child(3) { animation-delay: 0.3s; }
+.menu-item:nth-child(4) { animation-delay: 0.4s; }
+.menu-item:nth-child(5) { animation-delay: 0.5s; }
+
+.keypad {
+  display: grid;
+  grid-template-areas:
+      "menu    up      select"
+      "left    hire    right"
+      "back    down    options";
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.key[data-key="menu"] { grid-area: menu; }
+.key[data-key="up"] { grid-area: up; }
+.key[data-key="select"] { grid-area: select; }
+.key[data-key="left"] { grid-area: left; }
+.key[data-key="hire"] { 
+  grid-area: hire;
+  background: var(--nokia-blue);
+  color: white;
+  font-weight: bold;
+}
+.key[data-key="right"] { grid-area: right; }
+.key[data-key="back"] { grid-area: back; }
+.key[data-key="down"] { grid-area: down; }
+.key[data-key="options"] { grid-area: options; }
+
+.key {
+  background: linear-gradient(to bottom, #f0f0f0, #d4d4d4);
+  border: 2px solid #999;
+  border-radius: 5px;
+  padding: 12px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  user-select: none;
+  transition: all 0.1s ease;
+}
+
+.key[data-key="hire"]:active {
+  background: var(--nokia-highlight);
+  transform: translateY(1px);
+}
+
+.key:active:not([data-key="hire"]), 
+.key.key-pressed:not([data-key="hire"]) {
+  background: linear-gradient(to bottom, #d4d4d4, #f0f0f0);
+  transform: translateY(1px);
+}
+.keypad {
+  display: grid;
+  grid-template-areas:
+      "menu    up      select"
+      "left    hire    right"
+      ".       down    .";
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.key[data-key="menu"] { grid-area: menu; }
+.key[data-key="up"] { grid-area: up; }
+.key[data-key="select"] { grid-area: select; }
+.key[data-key="left"] { grid-area: left; }
+.key[data-key="hire"] { 
+  grid-area: hire;
+  background: var(--nokia-blue);
+  color: white;
+  font-weight: bold;
+}
+.key[data-key="right"] { grid-area: right; }
+.key[data-key="down"] { grid-area: down; }
+
+.key.spacer {
+  visibility: hidden;
+}
+
+.key {
+  background: linear-gradient(to bottom, #f0f0f0, #d4d4d4);
+  border: 2px solid #999;
+  border-radius: 5px;
+  padding: 12px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  user-select: none;
+  transition: all 0.1s ease;
+}
+
+.key[data-key="hire"]:active {
+  background: var(--nokia-highlight);
+  transform: translateY(1px);
+}
+
+.key:active:not([data-key="hire"]):not(.spacer), 
+.key.key-pressed:not([data-key="hire"]):not(.spacer) {
+  background: linear-gradient(to bottom, #d4d4d4, #f0f0f0);
+  transform: translateY(1px);
+}
+/* MObile*/
+/* Base container responsiveness */
+.phone-container {
+  width: 360px;
+  max-width: 95vw; /* Prevents overflow on very small screens */
+  margin: 0 auto;
+  background: var(--nokia-grey);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 
+      0 0 20px rgba(0, 0, 0, 0.5),
+      inset 0 0 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+/* Screen responsiveness */
+.screen {
+  height: 480px;
+  max-height: calc(70vh - 100px); /* Adjusts screen height for smaller devices */
+}
+
+/* Keypad responsiveness */
+.keypad {
+  display: grid;
+  grid-template-areas:
+      "menu    up      select"
+      "left    hire    right"
+      ".       down    .";
+  gap: 8px;
+  margin-top: 15px;
+  width: 100%;
+}
+
+.key {
+  min-height: 44px; /* Minimum touch target size */
+  padding: 8px;
+  font-size: clamp(14px, 3vw, 16px); /* Responsive font size */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation; /* Better touch handling */
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 400px) {
+  body {
+      padding: 10px;
+  }
+
+  .phone-container {
+      width: 100%;
+      padding: 15px;
+      border-radius: 15px;
+  }
+
+  .screen {
+      height: calc(70vh - 80px);
+  }
+
+  .keypad {
+      gap: 6px;
+  }
+
+  .key {
+      padding: 10px 6px;
+  }
+
+  .key[data-key="hire"] {
+      font-size: clamp(14px, 3.5vw, 16px);
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 320px) {
+  .phone-container {
+      padding: 10px;
+  }
+
+  .keypad {
+      gap: 4px;
+  }
+
+  .key {
+      padding: 8px 4px;
+      font-size: clamp(12px, 3vw, 14px);
+  }
+}
+
+/* Landscape orientation */
+@media (max-height: 600px) and (orientation: landscape) {
+  .phone-container {
+      max-height: 95vh;
+      display: flex;
+      flex-direction: column;
+  }
+
+  .screen {
+      height: calc(60vh - 60px);
+  }
+
+  .keypad {
+      margin-top: 10px;
+  }
+
+  .key {
+      min-height: 36px;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) {
+  .key {
+      -webkit-tap-highlight-color: transparent;
+  }
+
+  .key:active {
+      transform: scale(0.98);
+  }
+}
+
+/* High DPI screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .key {
+      border-width: 1px;
+  }
+}
+
+/* Ensure content is readable */
+.menu-text {
+  font-size: clamp(14px, 3vw, 16px);
+}
+
+.menu-hint {
+  font-size: clamp(10px, 2.5vw, 12px);
+}
+
+/* Status bar responsiveness */
+.status-bar {
+  font-size: clamp(10px, 2.5vw, 12px);
+  padding: 5px clamp(5px, 2vw, 10px);
+}
+
+/* Notification responsiveness */
+.notification-container {
+  width: min(90%, 300px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.notification {
+  font-size: clamp(12px, 3vw, 14px);
+  padding: 10px 15px;
 }
