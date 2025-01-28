@@ -1166,3 +1166,112 @@ body {
   color: var(--nokia-blue);
   font-weight: bold;
 }
+.nokia-assistant-section {
+  margin-top: 20px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--nokia-blue);
+  border-radius: 4px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.assistant-profile {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.assistant-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid var(--nokia-blue);
+  overflow: hidden;
+}
+
+.profile-pic {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.assistant-intro {
+  flex: 1;
+}
+
+.assistant-intro p {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--text-primary);
+  margin: 2px 0;
+}
+
+.assistant-input-container {
+  margin-top: 10px;
+}
+
+.nokia-input {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  background: #fff;
+  border-radius: 2px;
+  font-family: inherit;
+  font-size: 12px;
+  box-shadow: 
+      inset 0 1px 3px rgba(0,0,0,0.2),
+      inset 0 0 0 1px rgba(0,0,0,0.1);
+}
+
+.nokia-input:focus {
+  outline: none;
+  box-shadow: 
+      inset 0 1px 3px rgba(0,0,0,0.2),
+      inset 0 0 0 2px var(--nokia-blue);
+}
+.nokia-assistant-section {
+  margin-top: 15px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--nokia-blue);
+  border-radius: 4px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.assistant-intro {
+  margin-bottom: 12px;
+}
+
+.assistant-intro p {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--text-primary);
+  margin: 4px 0;
+  padding-left: 8px;
+  border-left: 2px solid var(--nokia-blue);
+}
+
+.assistant-input-container {
+  margin-top: 10px;
+}
+
+.nokia-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: none;
+  background: #fff;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 12px;
+  box-shadow: 
+      inset 0 2px 4px rgba(0,0,0,0.1),
+      inset 0 0 0 1px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+}
+
+.nokia-input:focus {
+  outline: none;
+  box-shadow: 
+      inset 0 2px 4px rgba(0,0,0,0.1),
+      inset 0 0 0 2px var(--nokia-blue);
+}

@@ -16,7 +16,7 @@ class App {
     this.updateStatusBar("Main Menu");
   }
 
-  static generateMenu() {
+  static generateMen() {
     return `
             <div class="menu-container">
                 ${MENU_DATA.main.items
@@ -36,6 +36,39 @@ class App {
             </div>
         `;
   }
+  static generateMenu() {
+    return `
+        <div class="menu-container">
+            ${MENU_DATA.main.items.map((item, index) => `
+                <div class="menu-item" data-id="${item.id}">
+                    <div class="menu-icon">${item.icon}</div>
+                    <div class="menu-content">
+                        <div class="menu-text">${item.text}</div>
+                        <div class="menu-hint">${item.hrNote}</div>
+                    </div>
+                </div>
+            `).join('')}
+            
+            <!-- AI Assistant Section -->
+            <div class="nokia-assistant-section">
+                <div class="assistant-intro">
+                    <p><strong>Hello World!</strong>, I am cerebras LLM.</p>
+                     <p><strong>Lets talk</strong></p>
+                </div>
+                <div class="assistant-input-container">
+                    <input 
+                        type="text" 
+                        class="nokia-input" 
+                        placeholder="Ask me anything about his work..."
+                        aria-label="Ask AI Assistant"
+                    >
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+
 
   static async showScreen(screenId) {
     const content = document.getElementById("content");
