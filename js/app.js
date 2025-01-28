@@ -61,7 +61,7 @@ class App {
                             </div>
                         </div>
                         <div class="assistant-intro">
-                            <p><strong>Hello World!</strong>, I am Cerebras LLM</p>
+                            <p><strong>Hello World!</strong>, I am <strong>Cerebras LLM</strong></p>
                             <p>I will answer any questions relating to Thoriso's work</p>
                         </div>
                     </div>
@@ -76,7 +76,7 @@ class App {
             type="text" 
             id="aiChatInput"
             class="nokia-input" 
-            placeholder="Ask me anything about my work..."
+            placeholder="List Thoriso's tech-stack..."
             aria-label="Ask AI Assistant"
         >
         <button id="sendButton" class="send-button">
@@ -178,6 +178,7 @@ class App {
                 </div>
 
                 <div class="section">
+
                     <div class="section-title">Professional Profiles</div>
                     <a href="${
                       MENU_DATA.contact.social.github.url
@@ -191,6 +192,7 @@ class App {
                             <span class="arrow">→</span>
                         </div>
                     </a>
+                    
                     <a href="${
                       MENU_DATA.contact.social.linkedin.url
                     }" target="_blank" class="profile-link">

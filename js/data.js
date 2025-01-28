@@ -80,7 +80,7 @@ const MENU_DATA = {
                 degree: "Diploma in Information and Communication Technology",
                 specialization: "Application Development",
                 institution: "Sol Plaatje University",
-                period: "2020 - 2023",
+                period: "2022 - 20234",
                 achievements: [
                     "Distinction in Final Year Project - Campus Life System",
                     "Participant in TelkomLearn Hackathon with Geekulcha at SPU 2024",

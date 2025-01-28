@@ -16,8 +16,7 @@ class AIChat {
         chatMessages.appendChild(typingIndicator);
         
         try {
-            // Here you would integrate with Cerebras LLM
-            // For now, we'll simulate a response
+             //simulate a response
             await this.simulateTyping();
             
             // Remove typing indicator

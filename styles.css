@@ -1556,3 +1556,157 @@ body {
   margin-left: auto;
   max-width: 80%;
 }
+/* Add these styles to your styles.css */
+.profile-screen {
+  padding: 16px;
+  font-family: "Nokia Pure Text", monospace;
+}
+
+.profile-header {
+  margin-bottom: 24px;
+}
+
+.profile-name {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--nokia-blue);
+  margin-bottom: 8px;
+}
+
+.profile-role {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.profile-tagline {
+  font-size: 14px;
+  color: #666;
+}
+
+.section-header {
+  background: var(--nokia-blue);
+  color: white;
+  padding: 8px 12px;
+  font-weight: bold;
+  border-radius: 4px;
+  margin: 16px 0 12px 0;
+}
+
+.profile-link-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 12px;
+  margin: 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: transform 0.2s;
+}
+
+.profile-link-card:hover {
+  transform: translateX(4px);
+  background: #f8f9fa;
+}
+
+.overview-item {
+  display: flex;
+  gap: 8px;
+  margin: 8px 0;
+  align-items: flex-start;
+  line-height: 1.4;
+}
+
+.overview-bullet {
+  color: var(--nokia-blue);
+  font-weight: bold;
+}
+
+.achievement-card {
+  background: #f8f9fa;
+  border-left: 3px solid var(--nokia-blue);
+  padding: 10px 12px;
+  margin: 8px 0;
+}
+
+.current-work-section {
+  background: white;
+  border-radius: 6px;
+  padding: 16px;
+  margin: 16px 0;
+}
+
+.work-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.work-title {
+  font-weight: bold;
+  color: var(--nokia-blue);
+}
+
+.work-period {
+  color: #666;
+  font-size: 0.9em;
+}
+
+.work-item {
+  display: flex;
+  gap: 8px;
+  margin: 6px 0;
+  align-items: center;
+}
+
+.education-section {
+  background: white;
+  border-radius: 6px;
+  padding: 16px;
+  margin: 16px 0;
+}
+
+.education-header {
+  margin-bottom: 12px;
+}
+
+.education-degree {
+  font-weight: bold;
+  color: var(--nokia-blue);
+  margin-bottom: 4px;
+}
+
+.education-details {
+  color: #666;
+  font-size: 0.9em;
+  margin-bottom: 8px;
+}
+
+.achievement-star {
+  color: var(--nokia-blue);
+  font-size: 1.2em;
+}
+
+.certification-card {
+  background: white;
+  border-radius: 6px;
+  padding: 16px;
+  margin: 16px 0;
+}
+
+.cert-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.cert-tag {
+  background: rgba(0, 72, 170, 0.1);
+  color: var(--nokia-blue);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
