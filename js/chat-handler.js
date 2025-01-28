@@ -1,81 +1,73 @@
+// chat-handler.js
 class ChatHandler {
-    static init() {
-        this.setupEventListeners();
-    }
+  static async handleMessage() {
+    const input = document.getElementById("aiChatInput");
+    const messagesContainer = document.getElementById("chatMessages");
 
-    static setupEventListeners() {
-        const input = document.getElementById('aiChatInput');
-        const sendButton = document.getElementById('sendButton');
+    if (input && input.value.trim()) {
+      const userMessage = input.value.trim();
 
-        if (input && sendButton) {
-            // Handle Enter key press
-            input.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    this.handleMessage();
-                }
-            });
+      // Add user message
+      this.addMessage(userMessage, "user");
 
-            // Handle button click
-            sendButton.addEventListener('click', () => {
-                this.handleMessage();
-            });
-        }
-    }
-
-    static handleMessage() {
-        const input = document.getElementById('aiChatInput');
-        const messagesContainer = document.getElementById('chatMessages');
-        
-        if (input && input.value.trim()) {
-            // Add user message
-            this.addMessage(input.value, 'user');
-            
-            // Simulate AI response
-            this.simulateResponse(input.value);
-            
-            // Clear input
-            input.value = '';
-            input.focus();
-        }
-    }
-
-    static addMessage(text, type) {
-        const messagesContainer = document.getElementById('chatMessages');
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `message ${type}`;
-        messageDiv.textContent = text;
-        messagesContainer.appendChild(messageDiv);
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }
-
-    static async simulateResponse(query) {
-        // Add typing indicator
-        this.addMessage('...', 'assistant typing');
-        
-        // Simulate thinking time
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        // Remove typing indicator
-        const typingMessage = document.querySelector('.typing');
-        if (typingMessage) {
-            typingMessage.remove();
-        }
+      try {
+        // Call Cerebras LLM API
+        const response = await this.callCerebrasLLM(userMessage);
 
         // Add AI response
-        const response = this.generateResponse(query);
-        this.addMessage(response, 'assistant');
+        this.addMessage(response, "assistant");
+      } catch (error) {
+        console.error("Error:", error);
+        this.addMessage(
+          "Sorry, I encountered an error. Please try again.",
+          "assistant"
+        );
+      }
+
+      // Clear input
+      input.value = "";
+      input.focus();
+    }
+  }
+
+  static async callCerebrasLLM(message) {
+    // Replace with your actual Cerebras LLM API endpoint and credentials
+    const response = await fetch("YOUR_CEREBRAS_ENDPOINT", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "YOUR_API_KEY",
+      },
+      body: JSON.stringify({
+        message: message,
+        context:
+          "You are an AI assistant answering questions about Thoriso's work and experience",
+      }),
+    });
+
+    const data = await response.json();
+    return data.response;
+  }
+
+  static addMessage(text, type) {
+    const messagesContainer = document.getElementById("chatMessages");
+    const messageDiv = document.createElement("div");
+    messageDiv.className = `message ${type}`;
+
+    if (
+      type === "assistant" &&
+      !text.includes("Sorry, I encountered an error")
+    ) {
+      messageDiv.innerHTML = `
+                <div class="message-content">
+                    <p>${text}</p>
+                </div>
+            `;
+    } else {
+      messageDiv.textContent = text;
     }
 
-    static generateResponse(query) {
-        // Simple response generation - replace with actual AI integration
-        const responses = [
-            "I specialize in React and Django development.",
-            "I have experience building e-commerce solutions.",
-            "I focus on creating scalable and maintainable code.",
-            "Let me tell you more about my technical skills.",
-            "I've worked on several production systems with high uptime.",
-            "My approach combines modern tech with reliable architecture."
-        ];
-        return responses[Math.floor(Math.random() * responses.length)];
-    }
+    messagesContainer.appendChild(messageDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  }
 }
