@@ -34,6 +34,25 @@ const MENU_DATA = {
         name: "Thoriso Motaung",
         role: "Full-Stack Developer",
         tagline: "Building scalable solutions with modern technologies",
+        professionalProfiles: {
+            title: "Professional Profiles",
+            profiles: [
+                {
+                    platform: "GitHub",
+                    icon: "💻",
+                    description: "Project repositories • Code samples",
+                    url: "https://github.com/PapDuDe45K"
+                },
+                {
+                    platform: "LinkedIn",
+                    icon: "💼",
+                    description: "Professional network • Career updates",
+                    url: "https://www.linkedin.com/in/thorisomotaung/"
+                }
+            ]
+        },
+
+
         professionalSummary: {
             overview: [
                 "Full-Stack Developer with 1 year commercial experience",

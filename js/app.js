@@ -101,7 +101,7 @@ class App {
         });
     }
 
-    static generateProfile() {
+    static generateProfil() {
         const profile = MENU_DATA.profile;
         const summary = profile.professionalSummary;
         
@@ -193,6 +193,126 @@ class App {
             </div>
         `;
     }
+    static generateProfile() {
+        const profile = MENU_DATA.profile;
+        const summary = profile.professionalSummary;
+        
+        return `
+            <div class="screen-content profile-screen">
+                <div class="profile-header">
+                    <h2 class="name">${profile.name}</h2>
+                    <div class="role">${profile.role}</div>
+                    <div class="tagline">${profile.tagline}</div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Professional Profiles</div>
+                    <a href="${MENU_DATA.contact.social.github.url}" target="_blank" class="profile-link">
+                        <div class="profile-item">
+                            <span class="profile-icon">💻</span>
+                            <div class="profile-content">
+                                <div class="profile-name">GitHub</div>
+                                <div class="profile-description">Project repositories • Code samples</div>
+                            </div>
+                            <span class="arrow">→</span>
+                        </div>
+                    </a>
+                    <a href="${MENU_DATA.contact.social.linkedin.url}" target="_blank" class="profile-link">
+                        <div class="profile-item">
+                            <span class="profile-icon">💼</span>
+                            <div class="profile-content">
+                                <div class="profile-name">LinkedIn</div>
+                                <div class="profile-description">Professional network • Career updates</div>
+                            </div>
+                            <span class="arrow">→</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Professional Overview</div>
+                    ${summary.overview.map(item => `
+                        <div class="summary-item">
+                            <span class="bullet">•</span>
+                            <span class="text">${item}</span>
+                        </div>
+                    `).join('')}
+                </div>
+    
+                
+    
+                <div class="section">
+                    <div class="section-title">Key Achievements</div>
+                    ${summary.achievements.map(item => `
+                        <div class="achievement-item">
+                            <span class="bullet">✓</span>
+                            <span class="text">${item}</span>
+                        </div>
+                    `).join('')}
+                </div>
+    
+                <div class="section">
+                    <div class="section-title">Current Work</div>
+                    <div class="current-role">
+                        <div class="role-header">
+                            <h3>${summary.currentWork.role}</h3>
+                            <span class="period">${summary.currentWork.period}</span>
+                        </div>
+                        <div class="role-highlights">
+                            ${summary.currentWork.highlights.map(highlight => `
+                                <div class="highlight-item">
+                                    <span class="bullet">→</span>
+                                    <span class="text">${highlight}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="section">
+                    <div class="section-title">Education</div>
+                    <div class="education-card">
+                        <h3>${summary.education.degree}</h3>
+                        <div class="education-details">
+                            <div class="institution">${summary.education.institution}</div>
+                            <div class="period">${summary.education.period}</div>
+                        </div>
+                        <div class="specialization">${summary.education.specialization}</div>
+                        <div class="achievements">
+                            ${summary.education.achievements.map(achievement => `
+                                <div class="achievement-item">
+                                    <span class="bullet">★</span>
+                                    <span class="text">${achievement}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+    
+                ${summary.certifications.length > 0 ? `
+                    <div class="section">
+                        <div class="section-title">Certifications</div>
+                        ${summary.certifications.map(cert => `
+                            <div class="cert-card">
+                                <h3>${cert.name}</h3>
+                                <div class="cert-details">
+                                    <span class="issuer">${cert.issuer}</span>
+                                    <span class="date">${cert.date}</span>
+                                </div>
+                                <div class="topics">
+                                    ${cert.topics.map(topic => `
+                                        <span class="topic-tag">${topic}</span>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : ''}
+            </div>
+        `;
+    }
+
+
     static generateProjects() {
         const projects = MENU_DATA.projects.featured;
         return `
@@ -317,56 +437,12 @@ class App {
                     </div>
                 </div>
     
-                <div class="nokia-contact-section">
-                    <div class="section-header">
-                        Professional Profiles
-                    </div>
-                    
-                    <div class="profile-links">
-                        <a href="${contact.social.github.url}" target="_blank" class="profile-item">
-                            <div class="profile-icon">💻</div>
-                            <div class="profile-info">
-                                <div class="profile-name">GitHub</div>
-                                <div class="profile-details">
-                                    ${contact.social.github.highlights.join(' • ')}
-                                </div>
-                            </div>
-                            <div class="arrow">→</div>
-                        </a>
-    
-                        <a href="${contact.social.linkedin.url}" target="_blank" class="profile-item">
-                            <div class="profile-icon">💼</div>
-                            <div class="profile-info">
-                                <div class="profile-name">LinkedIn</div>
-                                <div class="profile-details">
-                                    ${contact.social.linkedin.highlights.join(' • ')}
-                                </div>
-                            </div>
-                            <div class="arrow">→</div>
-                        </a>
-                    </div>
-                </div>
+                
     
                 <div class="nokia-contact-section">
-                    <div class="section-header">
-                        Availability
-                    </div>
                     
-                    <div class="availability-info">
-                        <div class="status-badge ${contact.availability.status === 'Open to opportunities' ? 'available' : ''}">
-                            ${contact.availability.status}
-                        </div>
-                        
-                        <div class="roles-list">
-                            ${contact.availability.preferredRoles.map(role => `
-                                <div class="role-badge">${role}</div>
-                            `).join('')}
-                        </div>
-                        
-                        <div class="relocation-info">
-                            Relocation: ${contact.availability.relocation}
-                        </div>
-                    </div>
+                    
+                    
                 </div>
             </div>
         `;
