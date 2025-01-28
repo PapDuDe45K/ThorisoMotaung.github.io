@@ -1382,3 +1382,177 @@ body {
   background: #ff4444;
   color: white;
 }
+.message.assistant {
+  background: #0048AA;
+  color: white;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  line-height: 1.4;
+  white-space: pre-line;
+}
+
+.message.assistant br {
+  margin-bottom: 6px;
+}
+
+.message.assistant strong {
+  color: #ffffff;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0 4px;
+  border-radius: 2px;
+}
+
+.message.assistant hr {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  margin: 8px 0;
+}
+
+/* Bullet points styling */
+.message.assistant ul {
+  margin: 0;
+  padding-left: 16px;
+}
+
+.message.assistant li {
+  margin: 4px 0;
+}
+.message.assistant {
+  background: #0048AA;
+  color: white;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 8px 0;
+}
+
+.message.user {
+  background: #f0f0f0;
+  color: #333;
+  padding: 10px 14px;
+  border-radius: 12px;
+  margin: 8px 0;
+  margin-left: auto;
+  max-width: 80%;
+  font-size: 13px;
+}
+
+/* Add smooth animation */
+.message {
+  animation: messageSlide 0.3s ease-out;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+@keyframes messageSlide {
+  from {
+      opacity: 0;
+      transform: translateY(10px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+.typing-indicator {
+  display: flex;
+  gap: 4px;
+  padding: 4px 8px;
+  align-items: center;
+}
+
+.typing-dot {
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  animation: typingDot 1.4s infinite;
+}
+
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingDot {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-4px); }
+}
+.message.assistant {
+  background: #0048AA;
+  color: white;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 8px 0;
+}
+
+.message.assistant strong {
+  color: #ffffff;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.bullet-point {
+  padding-left: 12px;
+  position: relative;
+  margin: 4px 0;
+}
+
+.bullet-point::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.typing-indicator {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+}
+
+.typing-dot {
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  animation: typingDot 1.4s infinite;
+}
+.message.assistant {
+  background: #0048AA;
+  color: white;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.message.assistant .bold {
+  font-weight: 700;
+  display: block;  /* Makes headings appear on new line */
+  margin-bottom: 8px;
+  color: #ffffff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 4px;
+}
+
+.message.assistant .emphasis {
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 0 4px;
+  border-radius: 2px;
+}
+
+.message.user {
+  background: #f0f0f0;
+  color: #333;
+  padding: 10px 14px;
+  border-radius: 12px;
+  margin-left: auto;
+  max-width: 80%;
+}

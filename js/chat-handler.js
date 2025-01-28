@@ -16,6 +16,52 @@ class ChatHandler {
               {
                 role: "system",
                 content: `You are an AI assistant with complete knowledge about Thoriso Motaung's career information based off of his cv given to you.
+
+                           IMPORTANT GUIDELINES:
+    - Maintain strictly professional language
+    - No casual greetings or informal terms
+    - Respond directly and professionally
+    - Focus only on professional and technical information
+    - Avoid personal or casual remarks
+    
+    RESPONSE STYLE:
+    - Start responses with direct, professional statements
+    - Use formal business language
+    - Focus on facts and technical details
+    - Keep responses clear and concise
+
+    Example proper responses:
+    - "Here are Thoriso's current projects:"
+    - "The technical stack includes:"
+    - "Let me outline the project details:"
+    - Keep responses concise and well-structured
+    - Use bullet points for lists
+    - Maximum 2-3 short paragraphs
+    - Separate key points with line breaks
+    - Use clear headings when relevant
+                 When formatting responses:
+    1. Use **bold** for headings
+    2. Use *italic* for important terms
+    3. Use • for bullet points
+    4. Keep responses concise and well-structured
+    5. Use line breaks between sections
+    
+    Example format:
+    **Skills:**
+    • *Frontend*: React, JavaScript
+    • *Backend*: Django, Python
+    
+    **Experience:**
+    • Built e-commerce platform
+    • Increased revenue by 40%
+                
+       FORMAT RULES:
+    - Start each bullet point with •
+    - Use --- for separators when needed
+    - Keep sentences short and direct
+    - Highlight key terms in *asterisks*
+    - Maximum response length: 3-4 key points
+
                         Here is his background:
                         - Full Stack Developer specializing in React and Django
                         - 1+ year commercial experience in e-commerce
@@ -35,7 +81,7 @@ class ChatHandler {
                           * Entrusted to manage and administer 2 live websites , one is an NPO.
                           * Design Thinking certification from HP
                         
-                                Information and Communication Technology graduate with expertise in Application Development and
+                                Information and Communication Technology graduated 2024 with expertise in Application Development and
 System Integration. Proven track record in delivering client-focused web solutions and managing complex
 technical projects. Skilled in full-stack development, data analysis, and agile methodologies.
 Languages & Frameworks:
@@ -113,7 +159,7 @@ Sol Plaatje University, 2024
     }
   }
 
-  static addMessage(text, type, isLoading = false) {
+  static addMessag(text, type, isLoading = false) {
     const messagesContainer = document.getElementById("chatMessages");
     const messageDiv = document.createElement("div");
     messageDiv.className = `message ${type} ${isLoading ? "loading" : ""}`;
@@ -121,6 +167,16 @@ Sol Plaatje University, 2024
     if (isLoading) {
       messageDiv.innerHTML =
         '<div class="loading-dots"><span>.</span><span>.</span><span>.</span></div>';
+    } else if (type === "assistant") {
+      // Format the response
+      const formattedText = text
+        .replace(/•/g, "<br>•") // Add line break before bullets
+        .replace(/\n/g, "<br>") // Convert newlines to HTML breaks
+        .replace(/\*([^*]+)\*/g, "<strong>$1</strong>") // Convert *text* to bold
+        .replace(/---/g, "<hr>") // Convert --- to horizontal line
+        .trim();
+
+      messageDiv.innerHTML = formattedText;
     } else {
       messageDiv.textContent = text;
     }
@@ -129,6 +185,32 @@ Sol Plaatje University, 2024
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
     return messageDiv;
   }
+
+  static addMessage(text, type, isLoading = false) {
+    const messagesContainer = document.getElementById('chatMessages');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${type} ${isLoading ? 'loading' : ''}`;
+    
+    if (isLoading) {
+        messageDiv.innerHTML = '<div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>';
+    } else if (type === 'assistant') {
+        // Format the response
+       
+            // Handle bold text with ** or *
+            let formattedText = text
+            .replace(/\*\*(.*?)\*\*/g, '<span class="bold">$1</span>')
+            .replace(/\*(.*?)\*/g, '<span class="emphasis">$1</span>')
+            .replace(/\n/g, '<br>');
+        
+        messageDiv.innerHTML = formattedText;
+    } else {
+        messageDiv.textContent = text;
+    }
+    
+    messagesContainer.appendChild(messageDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    return messageDiv;
+} 
 
   static async handleMessage() {
     const input = document.getElementById("aiChatInput");
@@ -163,21 +245,28 @@ Sol Plaatje University, 2024
   }
 
   static init() {
-    const input = document.getElementById("aiChatInput");
-    const sendButton = document.getElementById("sendButton");
+    const input = document.getElementById('aiChatInput');
+    const sendButton = document.getElementById('sendButton');
 
     if (input && sendButton) {
-      // Handle Enter key press
-      input.addEventListener("keypress", (e) => {
-        if (e.key === "Enter") {
-          this.handleMessage();
-        }
-      });
+        // Handle Enter key press
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault(); // Prevent default enter behavior
+                this.handleMessage();
+            }
+        });
 
-      // Handle button click
-      sendButton.addEventListener("click", () => {
-        this.handleMessage();
-      });
+        // Handle button click
+        sendButton.addEventListener('click', () => {
+            this.handleMessage();
+        });
+
+        // Keep focus in input field
+        input.focus();
+        input.addEventListener('blur', () => {
+            // Small delay to maintain focus
+            setTimeout(() => input.focus(), 100);
+        });
     }
-  }
-}
+}}
