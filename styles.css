@@ -1275,3 +1275,88 @@ body {
       inset 0 2px 4px rgba(0,0,0,0.1),
       inset 0 0 0 2px var(--nokia-blue);
 }
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 
+      inset 0 2px 4px rgba(0,0,0,0.1),
+      inset 0 0 0 1px rgba(0,0,0,0.1);
+}
+
+.nokia-input {
+  flex: 1;
+  padding: 8px 40px 8px 12px;
+  border: none;
+  background: transparent;
+  font-size: 12px;
+  width: calc(100% - 35px);
+}
+
+.nokia-input:focus {
+  outline: none;
+}
+
+.send-button {
+  position: absolute;
+  right: 4px;
+  width: 28px;
+  height: 22px;
+  background: var(--nokia-blue);
+  border: none;
+  border-radius: 3px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.send-button:active {
+  transform: scale(0.95);
+  background: var(--nokia-highlight);
+}
+
+.send-button span {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.chat-messages {
+  margin-top: 10px;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.message {
+  padding: 6px 10px;
+  margin: 4px 0;
+  border-radius: 4px;
+  font-size: 12px;
+  animation: slideIn 0.3s ease-out;
+}
+
+.message.user {
+  background: rgba(0, 72, 170, 0.1);
+  margin-left: 20px;
+}
+
+.message.assistant {
+  background: var(--nokia-blue);
+  color: white;
+  margin-right: 20px;
+}
+
+@keyframes slideIn {
+  from {
+      opacity: 0;
+      transform: translateY(10px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}

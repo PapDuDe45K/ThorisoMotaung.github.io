@@ -7,6 +7,8 @@ class App {
     this.navigation = new Navigation();
     this.showMainMenu();
     this.setupEventListeners();
+    AIChat.init(); // init cerebras
+    ChatHandler.init(); // init chat handler
   }
 
   static showMainMenu() {
@@ -51,17 +53,38 @@ class App {
             
             <!-- AI Assistant Section -->
             <div class="nokia-assistant-section">
-                <div class="assistant-intro">
-                    <p><strong>Hello World!</strong>, I am cerebras LLM.</p>
-                     <p><strong>Lets talk</strong></p>
+                <div class="assistant-header">
+                    <div class="assistant-profile">
+                        <div class="profile-image-container">
+                            <div class="profile-placeholder">
+                                👨‍💻
+                            </div>
+                        </div>
+                        <div class="assistant-intro">
+                            <p><strong>Hello World!</strong>, I am Cerebras LLM</p>
+                            <p>I will answer any questions relating to Thoriso's work</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="assistant-input-container">
-                    <input 
-                        type="text" 
-                        class="nokia-input" 
-                        placeholder="Ask me anything about his work..."
-                        aria-label="Ask AI Assistant"
-                    >
+                <div class="assistant-chat">
+                    <div class="chat-messages" id="chatMessages">
+                        <!-- Messages will appear here -->
+                    </div>
+                   <div class="assistant-input-container">
+    <div class="input-wrapper">
+        <input 
+            type="text" 
+            id="aiChatInput"
+            class="nokia-input" 
+            placeholder="Ask me anything about my work..."
+            aria-label="Ask AI Assistant"
+        >
+        <button id="sendButton" class="send-button">
+            <span>↵</span>
+        </button>
+    </div>
+    <div id="chatMessages" class="chat-messages"></div>
+</div>
                 </div>
             </div>
         </div>
